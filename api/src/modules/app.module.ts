@@ -1,5 +1,7 @@
 import { Module } from "@nestjs/common";
+import { JwtModule } from "@nestjs/jwt";
 import { AppController } from "./app.controller";
+import { PassportModule } from "@nestjs/passport";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 
@@ -13,6 +15,15 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
         uri: _ConfigService_.get<string>("DB_URI"),
       }),
     }),
+    JwtModule.registerAsync({
+      global: true,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (_ConfigService_: ConfigService) => ({
+        secret: _ConfigService_.get<string>("JWT_SECRET"),
+      }),
+    }),
+    PassportModule,
   ],
   controllers: [AppController],
 })
