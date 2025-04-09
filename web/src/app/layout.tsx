@@ -8,6 +8,9 @@ const roboto = Roboto({ weight: ["400", "500", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CAFnow",
+  description: "Manage your CAFS easly with CAFnow",
+  authors: [{ name: "Elvis", url: "https://github.com/TioElvis" }],
+  creator: "TioElvis",
 };
 
 interface Props {
