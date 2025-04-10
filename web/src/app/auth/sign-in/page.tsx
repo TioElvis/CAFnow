@@ -50,7 +50,7 @@ export default function Page() {
     onSuccess: () => {
       form.reset();
 
-      replace("/private/my-profile");
+      replace("/private");
     },
     onError: (error) => {
       form.reset();

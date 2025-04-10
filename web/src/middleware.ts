@@ -5,6 +5,7 @@ import type { MiddlewareConfig, NextRequest } from "next/server";
 
 const secret = new TextEncoder().encode(JWT_SECRET);
 
+// Add controllers to protect admin, manager, employee and client routes
 export async function middleware(request: NextRequest) {
   try {
     await fetch(new URL("/", API_URL));
@@ -36,7 +37,7 @@ export async function middleware(request: NextRequest) {
   if (refresh_token !== undefined && pathname === "/auth/sign-in") {
     try {
       await jwtVerify(refresh_token, secret);
-      return NextResponse.redirect(new URL("/private/my-profile", request.url));
+      return NextResponse.redirect(new URL("/private", request.url));
     } catch (error) {
       console.error(error);
     }
