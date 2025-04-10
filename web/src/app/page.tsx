@@ -142,7 +142,7 @@ export default function Page() {
       </main>
       <footer className="flex flex-col gap-2 items-center justify-between px-12 py-4 bg-muted md:flex-row md:gap-0">
         <span className="text-xl font-bold">CAFnow</span>
-        <span className="text-muted-foreground">
+        <span className="text-sm text-muted-foreground">
           © {new Date().getFullYear()} CAFnow. All rights reserved.
         </span>
         <div className="flex gap-2">
