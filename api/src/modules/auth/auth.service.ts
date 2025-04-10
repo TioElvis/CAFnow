@@ -4,8 +4,8 @@ import {
 } from "../../lib/constants";
 import type { Model } from "mongoose";
 import { compareSync } from "bcryptjs";
-import type { Token } from "../../types";
 import { JwtService } from "@nestjs/jwt";
+import type { Token } from "../../types";
 import { SignInDto } from "./dto/sign-in.dto";
 import { InjectModel } from "@nestjs/mongoose";
 import { ConfigService } from "@nestjs/config";
@@ -75,7 +75,7 @@ export class AuthService {
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         domain: this.domain,
-        path: "/auth/refresh-token",
+        path: "/",
         maxAge: REFRESH_TOKEN_EXPIRES,
       });
 
