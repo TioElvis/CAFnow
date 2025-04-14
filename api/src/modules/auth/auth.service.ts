@@ -1,19 +1,21 @@
 import {
   ACCESS_TOKEN_EXPIRES,
   REFRESH_TOKEN_EXPIRES,
+  TEMPORARY_TOKEN_EXPIRES,
 } from "../../lib/constants";
-import { Token } from "../../types";
 import type { Model } from "mongoose";
 import { compareSync } from "bcryptjs";
 import { hash } from "../../lib/utils";
-import type { Response } from "express";
 import { JwtService } from "@nestjs/jwt";
 import { SignInDto } from "./dto/sign-in.dto";
 import { ConfigService } from "@nestjs/config";
 import { InjectModel } from "@nestjs/mongoose";
+import type { Request, Response } from "express";
 import { User } from "../../schemas/user.schema";
+import type { Cookies, Token } from "../../types";
 import { UserService } from "../user/user.service";
 import { HttpException, Injectable } from "@nestjs/common";
+import { MyTokenProvider } from "../../providers/my-token.provider";
 
 @Injectable()
 export class AuthService {
@@ -23,6 +25,7 @@ export class AuthService {
     private _JwtService_: JwtService,
     private _UserService_: UserService,
     private _ConfigService_: ConfigService,
+    private _MyTokenProvider_: MyTokenProvider,
     @InjectModel(User.name) private _UserModel_: Model<User>,
   ) {
     // Configure domain to send cookies
@@ -84,6 +87,30 @@ export class AuthService {
     } catch (error) {
       console.error(error);
       throw new HttpException("Error nel sign-in", 500);
+    }
+  }
+
+  async TemporaryAccessToken(request: Request) {
+    const refresh_token = (request.cookies as Cookies).refresh_token;
+    const value =
+      await this._MyTokenProvider_.IsRefreshTokenValid(refresh_token);
+
+    try {
+      const access_token = await this._JwtService_.signAsync(
+        {
+          type: "access",
+          user_id: value.user_id,
+        } satisfies Token,
+        { expiresIn: TEMPORARY_TOKEN_EXPIRES },
+      );
+
+      return { access_token };
+    } catch (error) {
+      console.error(error);
+      throw new HttpException(
+        "Error nel creare un access_token temporaneo",
+        500,
+      );
     }
   }
 }

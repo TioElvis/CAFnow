@@ -1,7 +1,15 @@
-import type { Response } from "express";
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  Req,
+  Res,
+} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { SignInDto } from "./dto/sign-in.dto";
-import { Body, Controller, HttpCode, Post, Res } from "@nestjs/common";
+import type { Request, Response } from "express";
 
 @Controller("auth")
 export class AuthController {
@@ -14,5 +22,17 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     return await this._AuthService_.SignIn(body, response);
+  }
+
+  /*
+    Why did I create this endpoint?
+
+    This endpoint was created to support server-side rendering (SSR) in a Next.js client.
+    I encountered issues with accessing the "access_token" cookie during SSR requests,
+    so I implemented this temporary access token as a workaround to authenticate those requests.
+  */
+  @Get("temporary-access-token")
+  async TemporaryAccessToken(@Req() request: Request) {
+    return await this._AuthService_.TemporaryAccessToken(request);
   }
 }
