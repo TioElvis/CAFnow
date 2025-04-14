@@ -4,6 +4,7 @@ import { UserModule } from "./user/user.module";
 import { AppController } from "./app.controller";
 import { PassportModule } from "@nestjs/passport";
 import { MongooseModule } from "@nestjs/mongoose";
+import { JwtStrategy } from "../strategies/jwt.strategy";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 
 @Module({
@@ -28,5 +29,6 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
     UserModule,
   ],
   controllers: [AppController],
+  providers: [JwtStrategy],
 })
 export class AppModule {}
