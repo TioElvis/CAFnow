@@ -22,19 +22,20 @@ export async function middleware(request: NextRequest) {
   }
 
   if (refresh_token !== undefined) {
-    const response = await _axios.get("/auth/check-refresh-token-integrity", {
-      headers: {
-        Cookie: `refresh_token=${refresh_token}`,
+    const response = await fetch(
+      new URL("/auth/check-refresh-token-integrity", process.env.API_URL),
+      {
+        headers: {
+          Cookie: `refresh_token=${refresh_token}`,
+        },
       },
-    });
+    );
 
-    const ok = response.status === 200;
-
-    if (isPrivate === true && ok === false) {
+    if (isPrivate === true && response.ok === false) {
       return NextResponse.redirect(new URL("/auth/sign-in", request.url));
     }
 
-    if (pathname === "/auth/sign-in" && ok === true) {
+    if (pathname === "/auth/sign-in" && response.ok === true) {
       return NextResponse.redirect(new URL("/private", request.url));
     }
   }
