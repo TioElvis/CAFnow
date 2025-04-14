@@ -24,5 +24,9 @@ export function handleError(error: unknown | AxiosError) {
     }
   }
 
+  if (error instanceof Error) {
+    return error.message;
+  }
+
   return "Internal error";
 }
