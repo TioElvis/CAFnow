@@ -35,4 +35,14 @@ export class AuthController {
   async TemporaryAccessToken(@Req() request: Request) {
     return await this._AuthService_.TemporaryAccessToken(request);
   }
+
+  /*
+    Why did I create this endpoint?
+    
+    This endpoint verify the integrity of refresh_token so in Nextjs We can validate the refresh_token to protect routes
+  */
+  @Get("check-refresh-token-integrity")
+  async CheckRefreshTokenIntegrity(@Req() request: Request) {
+    return await this._AuthService_.CheckRefreshTokenIntegrity(request);
+  }
 }

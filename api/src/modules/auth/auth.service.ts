@@ -113,4 +113,16 @@ export class AuthService {
       );
     }
   }
+
+  async CheckRefreshTokenIntegrity(request: Request) {
+    const refresh_token = (request.cookies as Cookies).refresh_token;
+    await this._MyTokenProvider_.IsRefreshTokenValid(refresh_token);
+
+    try {
+      return { refresh_token };
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("Errore nel controllare il refresh_token", 500);
+    }
+  }
 }
