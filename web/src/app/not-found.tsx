@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DcMGg5B } from "@/components/svg/DcMGg5B";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 
-export default function Page() {
+export default function NotFound() {
   return (
     <main className="w-full h-screen flex flex-col items-center justify-center lg:flex-row space-y-8 md:space-y-0">
       <MaxWidthWrapper className="w-full h-auto lg:w-1/2 flex flex-col items-center justify-center text-center lg:px-2 xl:px-0 gap-4">
