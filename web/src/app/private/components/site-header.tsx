@@ -1,15 +1,16 @@
 "use client";
 import Link from "next/link";
-import { Fragment, useEffect, useState } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
+import { Fragment, useEffect, useState } from "react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export function SiteHeader() {
@@ -24,7 +25,7 @@ export function SiteHeader() {
   }, [pathname]);
 
   return (
-    <header className="h-14 flex items-center border-b sticky top-0 bg-background">
+    <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear sticky top-0">
       <div className="flex w-full items-center p-4 lg:px-4">
         <SidebarTrigger />
         <Separator
@@ -38,11 +39,21 @@ export function SiteHeader() {
               return (
                 <Fragment key={e}>
                   <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <Link href={href}>
-                        {e.charAt(0).toUpperCase() + e.slice(1)}
-                      </Link>
-                    </BreadcrumbLink>
+                    {index !== path.length - 1 ? (
+                      <BreadcrumbLink asChild>
+                        <Link href={href}>
+                          {e === "caf"
+                            ? "CAF"
+                            : e.charAt(0).toUpperCase() + e.slice(1)}
+                        </Link>
+                      </BreadcrumbLink>
+                    ) : (
+                      <BreadcrumbPage>
+                        {e === "caf"
+                          ? "CAF"
+                          : e.charAt(0).toUpperCase() + e.slice(1)}
+                      </BreadcrumbPage>
+                    )}
                   </BreadcrumbItem>
                   {index !== path.length - 1 && <BreadcrumbSeparator />}
                 </Fragment>
