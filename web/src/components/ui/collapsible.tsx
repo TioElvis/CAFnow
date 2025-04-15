@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 
 function Collapsible({
@@ -9,10 +10,12 @@ function Collapsible({
 }
 
 function CollapsibleTrigger({
+  className,
   ...props
 }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {
   return (
     <CollapsiblePrimitive.CollapsibleTrigger
+      className={cn("cursor-pointer", className)}
       data-slot="collapsible-trigger"
       {...props}
     />
