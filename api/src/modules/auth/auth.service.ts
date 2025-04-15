@@ -90,6 +90,43 @@ export class AuthService {
     }
   }
 
+  async Logout(request: Request, response: Response) {
+    const refresh_token = (request.cookies as Cookies).refresh_token;
+    const value =
+      await this._MyTokenProvider_.IsRefreshTokenValid(refresh_token);
+
+    const user = await this._UserService_.FindById(value.user_id);
+
+    try {
+      user.finger_print = null;
+
+      response.cookie("access_token", null, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        domain: this.domain,
+        path: "/",
+        maxAge: 0,
+      });
+
+      response.cookie("refresh_token", refresh_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        domain: this.domain,
+        path: "/",
+        maxAge: 0,
+      });
+
+      await user.save();
+
+      return "La chiusura dell sessione è andata a buon fine";
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("Error nel logout", 500);
+    }
+  }
+
   async TemporaryAccessToken(request: Request) {
     const refresh_token = (request.cookies as Cookies).refresh_token;
     const value =

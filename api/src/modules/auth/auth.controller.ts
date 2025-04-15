@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  Patch,
   Post,
   Req,
   Res,
@@ -22,6 +23,14 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     return await this._AuthService_.SignIn(body, response);
+  }
+
+  @Patch("logout")
+  async Logout(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return await this._AuthService_.Logout(request, response);
   }
 
   /*
