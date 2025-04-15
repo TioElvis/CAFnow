@@ -23,6 +23,7 @@ async function bootstrap() {
   app.enableCors({
     credentials: true,
     origin: origins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   });
   await app.register(FastifyCookie);
   app.useGlobalPipes(new ValidationPipe());
