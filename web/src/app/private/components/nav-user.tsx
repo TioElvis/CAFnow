@@ -1,4 +1,10 @@
 "use client";
+import {
+  LoaderCircleIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserCircleIcon,
+} from "lucide-react";
 import Link from "next/link";
 import {
   SidebarMenu,
@@ -22,15 +28,9 @@ import { useToast } from "@/hooks/use-toast";
 import { _axios } from "@/providers/axios/csr";
 import { useMutation } from "@tanstack/react-query";
 import { ModeToggle } from "@/components/mode-toggle";
-import {
-  LoaderCircleIcon,
-  LogOutIcon,
-  SettingsIcon,
-  UserCircleIcon,
-} from "lucide-react";
 
 export function NavUser() {
-  const { isMobile } = useSidebar();
+  const { isMobile, setOpenMobile } = useSidebar();
   const { name, surname, email } = useContext(UserContext)!;
 
   const { toast } = useToast();
@@ -88,13 +88,17 @@ export function NavUser() {
             align="end"
             sideOffset={4}>
             <DropdownMenuGroup>
-              <Link href="/private/my-profile">
+              <Link
+                href="/private/my-profile"
+                onClick={() => setOpenMobile(false)}>
                 <DropdownMenuItem>
                   <UserCircleIcon />
                   Profilo
                 </DropdownMenuItem>
               </Link>
-              <Link href="/private/settings">
+              <Link
+                href="/private/settings"
+                onClick={() => setOpenMobile(false)}>
                 <DropdownMenuItem>
                   <SettingsIcon />
                   Impostazioni
