@@ -8,6 +8,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { useContext } from "react";
 import { NavUser } from "./nav-user";
@@ -17,6 +18,7 @@ import { UserContext } from "@/context/user";
 import { ArrowUpCircleIcon, SearchIcon } from "lucide-react";
 
 export function AppSidebar() {
+  const { setOpenMobile } = useSidebar();
   const { role } = useContext(UserContext)!;
 
   return (
@@ -42,7 +44,10 @@ export function AppSidebar() {
         {role !== UserRole.CLIENT && (
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild className="flex items-center">
+              <SidebarMenuButton
+                asChild
+                onClick={() => setOpenMobile(false)}
+                className="flex items-center">
                 <Link href="/private/search-link" className="w-full">
                   <SearchIcon className="h-5 w-5" />
                   <span>Cerca un link</span>

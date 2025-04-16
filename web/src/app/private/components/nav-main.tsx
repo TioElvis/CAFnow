@@ -15,6 +15,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { useContext } from "react";
 import {
@@ -25,6 +26,7 @@ import {
 import { UserContext } from "@/context/user";
 
 export function NavMain() {
+  const { setOpenMobile } = useSidebar();
   const { _id, role } = useContext(UserContext)!;
 
   const NAVBAR = [
@@ -186,7 +188,9 @@ export function NavMain() {
                 <SidebarMenuSub>
                   {sub_items?.map((item) => (
                     <SidebarMenuSubItem key={item.title}>
-                      <SidebarMenuSubButton asChild>
+                      <SidebarMenuSubButton
+                        asChild
+                        onClick={() => setOpenMobile(false)}>
                         <Link href={`/private/${item.to}`}>
                           <span>{item.title}</span>
                         </Link>
