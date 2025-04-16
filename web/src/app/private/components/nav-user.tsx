@@ -1,10 +1,4 @@
 "use client";
-import {
-  ChevronsUpDownIcon,
-  LogOutIcon,
-  SettingsIcon,
-  UserCircleIcon,
-} from "lucide-react";
 import Link from "next/link";
 import {
   SidebarMenu,
@@ -12,7 +6,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useContext } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,11 +16,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { handleError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { Fragment, useContext } from "react";
 import { UserContext } from "@/context/user";
 import { useToast } from "@/hooks/use-toast";
 import { _axios } from "@/providers/axios/csr";
 import { useMutation } from "@tanstack/react-query";
 import { ModeToggle } from "@/components/mode-toggle";
+import {
+  LoaderCircleIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserCircleIcon,
+} from "lucide-react";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -69,15 +69,17 @@ export function NavUser() {
             <SidebarMenuButton
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-              <div className="flex flex-col">
+              <section className="h-8 w-8 p-2 rounded-lg flex items-center justify-center bg-primary text-white">
+                <div>{name[0] + surname[0]}</div>
+              </section>
+              <section className="flex flex-col">
                 <span className="truncate font-medium">
                   {name} {surname}
                 </span>
                 <span className="truncate text-xs text-muted-foreground">
                   {email}
                 </span>
-              </div>
-              <ChevronsUpDownIcon className="ml-auto size-4" />
+              </section>
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -103,8 +105,17 @@ export function NavUser() {
             <ModeToggle />
             <DropdownMenuSeparator />
             <DropdownMenuItem disabled={isPending} onClick={() => Logout()}>
-              <LogOutIcon />
-              Log out
+              {isPending ? (
+                <span className="flex items-center gap-2">
+                  <LoaderCircleIcon className="animate-spin" />
+                  <p>Caricando...</p>
+                </span>
+              ) : (
+                <Fragment>
+                  <LogOutIcon />
+                  Log out
+                </Fragment>
+              )}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
