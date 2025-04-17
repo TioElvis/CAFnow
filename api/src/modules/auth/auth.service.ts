@@ -162,4 +162,34 @@ export class AuthService {
       throw new HttpException("Errore nel controllare il refresh_token", 500);
     }
   }
+
+  async RefreshAccessToken(request: Request, response: Response) {
+    const refresh_token = (request.cookies as Cookies).refresh_token;
+    const value =
+      await this._MyTokenProvider_.IsRefreshTokenValid(refresh_token);
+
+    try {
+      const access_token = await this._JwtService_.signAsync(
+        {
+          type: "access",
+          user_id: value.user_id,
+        } satisfies Token,
+        { expiresIn: ACCESS_TOKEN_EXPIRES },
+      );
+
+      response.cookie("access_token", access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        domain: this.domain,
+        path: "/",
+        maxAge: ACCESS_TOKEN_EXPIRES,
+      });
+
+      return { access_token };
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("Error nel creare un access_token", 500);
+    }
+  }
 }

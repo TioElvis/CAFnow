@@ -54,4 +54,17 @@ export class AuthController {
   async CheckRefreshTokenIntegrity(@Req() request: Request) {
     return await this._AuthService_.CheckRefreshTokenIntegrity(request);
   }
+
+  /*
+    Why did I create this endpoint?
+
+    This endpoint return the cookie for the access_token and have a long duration
+  */
+  @Get("refresh-access-token")
+  async RefreshAccessToken(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return await this._AuthService_.RefreshAccessToken(request, response);
+  }
 }
