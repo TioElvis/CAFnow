@@ -1,7 +1,12 @@
+import type {
+  FilterQuery,
+  Model,
+  ProjectionType,
+  QueryOptions,
+} from "mongoose";
 import { Types } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { User } from "../../schemas/user.schema";
-import type { Model, ProjectionType } from "mongoose";
 import { HttpException, Injectable } from "@nestjs/common";
 
 @Injectable()
@@ -20,5 +25,24 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async FindAll(
+    filter?: FilterQuery<User>,
+    projection?: ProjectionType<User>,
+    options?: QueryOptions,
+  ) {
+    try {
+      const users = await this._UserModel_.find(
+        filter || {},
+        projection,
+        options,
+      );
+
+      return users;
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("Errore nella ricerca degli utenti", 500);
+    }
   }
 }
