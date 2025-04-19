@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 export enum UserRole {
+  SUPER = "super", // A user with full permissions
   ADMIN = "admin",
   MANAGER = "manager",
   EMPLOYEE = "employee",
