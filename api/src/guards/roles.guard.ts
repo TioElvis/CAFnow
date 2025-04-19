@@ -1,7 +1,7 @@
 import type { Request } from "express";
 import { Reflector } from "@nestjs/core";
-import type { User } from "../schemas/user.schema";
 import type { ExecutionContext } from "@nestjs/common";
+import { UserRole, type User } from "../schemas/user.schema";
 import { CanActivate, Injectable, SetMetadata } from "@nestjs/common";
 
 // Use this guard with jwt strategy
@@ -15,6 +15,10 @@ export class RolesGuard implements CanActivate {
 
     if (user === undefined) {
       return false;
+    }
+
+    if (user.role === UserRole.SUPER) {
+      return true;
     }
 
     const roles = this._Reflector_.getAllAndOverride<string[]>("roles", [
