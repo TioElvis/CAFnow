@@ -89,7 +89,7 @@ export function NavUser() {
             sideOffset={4}>
             <DropdownMenuGroup>
               <Link
-                href="/private/my-profile"
+                href="/private/profile"
                 onClick={() => setOpenMobile(false)}>
                 <DropdownMenuItem>
                   <UserCircleIcon />
