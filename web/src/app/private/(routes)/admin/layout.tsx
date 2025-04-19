@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { UserRole } from "@/types/user";
+import { redirect } from "next/navigation";
 import { myProfile } from "@/app/private/actions";
 
 interface Props {
@@ -12,7 +13,7 @@ export default async function Layout({ children }: Readonly<Props>) {
   const roles = [UserRole.SUPER, UserRole.ADMIN];
 
   if (roles.includes(user.role) === false) {
-    throw new Error("Non autorizzato");
+    redirect("/private/unauthorized");
   }
 
   return <Fragment>{children}</Fragment>;
