@@ -1,5 +1,6 @@
 "use server";
 import { decodeJwt } from "jose";
+import type { User } from "@/types/user";
 import { handleError } from "@/lib/utils";
 import { _axios } from "@/providers/axios/ssr";
 import { getAccessToken } from "@/actions/get-access-token";
@@ -16,7 +17,7 @@ export async function myProfile() {
       },
     });
 
-    return response.data;
+    return response.data as User;
   } catch (error) {
     throw new Error(handleError(error));
   }
