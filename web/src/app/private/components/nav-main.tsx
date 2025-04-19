@@ -1,12 +1,6 @@
 "use client";
 import Link from "next/link";
 import {
-  BuildingIcon,
-  ChevronRightIcon,
-  FileText,
-  UsersIcon,
-} from "lucide-react";
-import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
@@ -23,148 +17,13 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { NAVBAR } from "@/lib/navbar";
 import { UserContext } from "@/context/user";
+import { ChevronRightIcon } from "lucide-react";
 
 export function NavMain() {
   const { setOpenMobile } = useSidebar();
-  const { _id, role } = useContext(UserContext)!;
-
-  const NAVBAR = [
-    {
-      role: "admin",
-      groups: [
-        {
-          name: "CAF",
-          Icon: BuildingIcon,
-          sub_items: [
-            {
-              title: "Vedi tutti",
-              to: "/admin/caf",
-            },
-            {
-              title: "Crea uno",
-              to: "/admin/caf/create",
-            },
-          ],
-        },
-        {
-          name: "Utenti",
-          Icon: UsersIcon,
-          sub_items: [
-            {
-              title: "Amministratori",
-              to: "/admin",
-            },
-            {
-              title: "Managers",
-              to: "/manager",
-            },
-            {
-              title: "Lavoratori",
-              to: "/employee",
-            },
-            {
-              title: "Clienti",
-              to: "/client",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      role: "manager",
-      groups: [
-        {
-          name: "Utenti",
-          Icon: UsersIcon,
-          sub_items: [
-            {
-              title: "Managers",
-              to: "/manager",
-            },
-            {
-              title: "Lavoratori",
-              to: "/employee",
-            },
-            {
-              title: "Clienti",
-              to: "/client",
-            },
-          ],
-        },
-        {
-          name: "Pratiche",
-          Icon: FileText,
-          sub_items: [
-            {
-              title: "Vedi tutte",
-              to: "/protocol",
-            },
-            {
-              title: "Le mie pratiche",
-              to: `/protocol?create_by=${_id}`,
-            },
-            {
-              title: "Crea una",
-              to: "/protocol/create",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      role: "employee",
-      groups: [
-        {
-          name: "Utenti",
-          Icon: UsersIcon,
-          sub_items: [
-            {
-              title: "Lavoratori",
-              to: "/employee",
-            },
-            {
-              title: "Clienti",
-              to: "/client",
-            },
-          ],
-        },
-        {
-          name: "Pratiche",
-          Icon: FileText,
-          sub_items: [
-            {
-              title: "Vedi tutte",
-              to: "/protocol",
-            },
-            {
-              title: "Le mie pratiche",
-              to: `/protocol?create_by=${_id}`,
-            },
-            {
-              title: "Crea una",
-              to: "/protocol/create",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      role: "client",
-      groups: [
-        {
-          name: "Pratiche",
-          Icon: FileText,
-          sub_items: [
-            {
-              title: "Vedi tutte le mie pratiche",
-              to: "/client/protocol",
-            },
-          ],
-        },
-      ],
-    },
-  ] as const;
+  const { role } = useContext(UserContext)!;
 
   const navbar = NAVBAR.find((x) => x.role === role);
 
