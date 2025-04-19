@@ -17,7 +17,10 @@ export class RolesGuard implements CanActivate {
       return false;
     }
 
-    const roles = this._Reflector_.get<string[]>("roles", context.getHandler());
+    const roles = this._Reflector_.getAllAndOverride<string[]>("roles", [
+      context.getHandler(),
+      context.getClass(),
+    ]);
 
     return roles.includes((user as User).role);
   }
