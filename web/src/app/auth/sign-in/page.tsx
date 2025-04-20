@@ -32,7 +32,7 @@ export default function Page() {
   });
 
   const { toast } = useToast();
-  const { replace } = useRouter();
+  const { replace, refresh } = useRouter();
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["sign-in"],
@@ -46,6 +46,7 @@ export default function Page() {
     onSuccess: () => {
       form.reset();
       replace("/private");
+      refresh();
     },
     onError: (error) => {
       form.reset();
