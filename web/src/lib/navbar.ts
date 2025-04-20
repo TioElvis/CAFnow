@@ -56,6 +56,10 @@ export const NAVBAR = [
         Icon: UsersIcon,
         sub_items: [
           {
+            title: "Amministratori",
+            to: "/admin",
+          },
+          {
             title: "Managers",
             to: "/manager",
           },

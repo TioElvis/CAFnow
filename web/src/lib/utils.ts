@@ -11,6 +11,10 @@ export function handleError(error: unknown | AxiosError) {
   if (isAxiosError(error) === true) {
     const message = error.response?.data?.message;
 
+    if (error.status === 401 || error.status === 403) {
+      return "Non hai i permessi per accedere a questa risorsa";
+    }
+
     if (message !== undefined) {
       if (message.message !== undefined) {
         if (Array.isArray(message.message)) {
