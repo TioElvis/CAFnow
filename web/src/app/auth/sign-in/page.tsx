@@ -52,6 +52,7 @@ export default function Page() {
       toast({
         description: error.message,
         variant: "destructive",
+        className: "text-white font-semibold",
       });
     },
   });
