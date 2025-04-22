@@ -68,7 +68,11 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Azioni</DropdownMenuLabel>
-            <DropdownMenuItem>Vedi informazioni</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href={`/private/user?id=${user._id}`}>
+                Vedi informazioni
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link href={`/private/admin/update?user_id=${user._id}`}>
