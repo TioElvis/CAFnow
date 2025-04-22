@@ -7,30 +7,44 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function handleError(error: unknown | AxiosError) {
-  if (isAxiosError(error) === true) {
-    const message = error.response?.data?.message;
+export class ClientError extends Error {
+  status: number;
 
-    if (error.status === 401 || error.status === 403) {
-      return "Non hai i permessi per accedere a questa risorsa";
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "AppError";
+    this.status = status;
+
+    Object.setPrototypeOf(this, ClientError.prototype);
+  }
+}
+
+export function HandleError(error: unknown | AxiosError) {
+  if (isAxiosError(error)) {
+    const message = error.response?.data?.message;
+    const status = error.response?.status ?? 500;
+
+    if (status === 401 || status === 403) {
+      return new ClientError(
+        "Non hai i permessi per accedere a questa risorsa",
+        status,
+      );
     }
 
     if (message !== undefined) {
-      if (message.message !== undefined) {
-        if (Array.isArray(message.message)) {
-          return message.message[0];
-        } else {
-          return message.message;
-        }
-      }
+      const parsedMessage = Array.isArray(message?.message)
+        ? message.message[0]
+        : message.message ?? message;
 
-      return message;
+      return new ClientError(parsedMessage, status);
     }
+
+    return new ClientError("Errore del server", status);
   }
 
   if (error instanceof Error) {
-    return error.message;
+    return new ClientError(error.message, 500);
   }
 
-  return "Internal error";
+  return new ClientError("Errore sconosciuto", 500);
 }

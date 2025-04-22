@@ -11,7 +11,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { TUseState } from "@/types";
+import type { UseState } from "@/types";
 import { createContext, useState } from "react";
 
 interface Context {
@@ -19,7 +19,7 @@ interface Context {
   columns: Array<ColumnDef<any>>;
   table: Table<any>;
   globalFilter: string;
-  setGlobalFilter: TUseState<string>;
+  setGlobalFilter: UseState<string>;
 }
 
 export const TableContext = createContext<Context | null>(null);
