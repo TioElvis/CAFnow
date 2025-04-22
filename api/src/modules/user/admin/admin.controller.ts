@@ -1,9 +1,19 @@
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common";
+import type { Types } from "mongoose";
 import { AuthGuard } from "@nestjs/passport";
 import { UserService } from "../user.service";
 import { UserRole } from "../../../schemas/user.schema";
 import { CreateAdminDto } from "./dto/create-admin.dto";
+import { UpdateAdminDto } from "./dto/update-admin.dto";
 import { Roles, RolesGuard } from "../../../guards/roles.guard";
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 
 @Controller("admin")
 @UseGuards(AuthGuard("jwt"), RolesGuard)
@@ -23,5 +33,10 @@ export class AdminController {
   @Post()
   async Create(@Body() body: CreateAdminDto) {
     return await this._UserService_.Create(body);
+  }
+
+  @Patch("update-by-id/:id")
+  async Update(@Param("id") id: Types.ObjectId, @Body() body: UpdateAdminDto) {
+    return await this._UserService_.Update(id, body);
   }
 }
