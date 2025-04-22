@@ -2,6 +2,7 @@
 import Link from "next/link";
 import {
   AlertDialog,
+  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -53,7 +54,6 @@ export function Actions({ row }: Readonly<Props>) {
       }
     },
     onSuccess: (response) => {
-      setAlertDialog(false);
       toast({
         title: response.data,
         className: "font-semibold",
@@ -112,7 +112,7 @@ export function Actions({ row }: Readonly<Props>) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancella</AlertDialogCancel>
-            <Button disabled={isPending} onClick={() => DeleteOne()}>
+            <AlertDialogAction disabled={isPending} onClick={() => DeleteOne()}>
               {isPending ? (
                 <span className="flex items-center gap-2">
                   <LoaderCircleIcon className="animate-spin" />
@@ -121,7 +121,7 @@ export function Actions({ row }: Readonly<Props>) {
               ) : (
                 "Continua"
               )}
-            </Button>
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </DropdownMenu>
