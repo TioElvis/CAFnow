@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -55,7 +56,9 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: () => {
+    cell: ({ row }) => {
+      const user = row.original;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -67,7 +70,11 @@ export const columns: ColumnDef<User>[] = [
             <DropdownMenuLabel>Azioni</DropdownMenuLabel>
             <DropdownMenuItem>Vedi informazioni</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Modifica</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href={`/private/admin/update?user_id=${user._id}`}>
+                Modifica
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>Cancella</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
