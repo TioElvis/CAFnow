@@ -9,6 +9,7 @@ import { hashSync } from "bcryptjs";
 import { hash } from "../../lib/utils";
 import { InjectModel } from "@nestjs/mongoose";
 import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 import { User, UserRole } from "../../schemas/user.schema";
 import { HttpException, Injectable } from "@nestjs/common";
 import { ResendProvider } from "../../providers/resend.provider";
@@ -82,6 +83,19 @@ export class UserService {
     } catch (error) {
       console.error(error);
       throw new HttpException("Errore nel creare un nuovo utente", 500);
+    }
+  }
+
+  async Update(id: Types.ObjectId, body: UpdateUserDto & { role?: UserRole }) {
+    const user = await this.FindById(id);
+
+    try {
+      await user.updateOne({ $set: { ...body } });
+
+      return "Utente aggiornato con successo";
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("Errore nell'aggiornare l'utente", 500);
     }
   }
 }

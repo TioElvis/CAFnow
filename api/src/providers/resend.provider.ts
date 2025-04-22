@@ -7,6 +7,10 @@ import { TEMPLATES_ROOT } from "../lib/constants";
 import { SendWelcomeMail } from "../types/resend";
 import { existsSync, readFileSync } from "node:fs";
 
+/*
+  In the future, we need to create a webhook to handle the response from Resend
+*/
+
 @Injectable()
 export class ResendProvider {
   private resend: Resend;
