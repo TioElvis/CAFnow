@@ -45,4 +45,9 @@ export class AdminController {
   async DeleteOne(@Param("id") id: Types.ObjectId) {
     return await this._UserService_.DeleteOne(id, UserRole.ADMIN);
   }
+
+  @Delete("delete-many")
+  async DeleteMany(@Body() { ids }: { ids: Array<Types.ObjectId> }) {
+    return await this._UserService_.DeleteMany(ids, UserRole.ADMIN);
+  }
 }
