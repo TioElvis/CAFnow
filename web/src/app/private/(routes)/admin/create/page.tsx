@@ -9,8 +9,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { schema } from "./schema";
+import { UserRole } from "@/types/user";
 import { handleError } from "@/lib/utils";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
@@ -28,11 +30,12 @@ export default function Page() {
       name: "",
       surname: "",
       email: "",
-      role: "admin",
+      role: UserRole.ADMIN,
     },
     mode: "onSubmit",
   });
 
+  const { push } = useRouter();
   const { toast } = useToast();
 
   const { mutate, isPending } = useMutation({
@@ -48,6 +51,7 @@ export default function Page() {
     },
     onSuccess: (response) => {
       form.reset();
+      push("/private/admin");
       toast({
         title: response.data,
         className: "font-semibold",
