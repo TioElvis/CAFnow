@@ -1,13 +1,14 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
   Post,
   UseGuards,
 } from "@nestjs/common";
-import type { Types } from "mongoose";
+import { Types } from "mongoose";
 import { AuthGuard } from "@nestjs/passport";
 import { UserService } from "../user.service";
 import { UserRole } from "../../../schemas/user.schema";
@@ -38,5 +39,10 @@ export class AdminController {
   @Patch("update-by-id/:id")
   async Update(@Param("id") id: Types.ObjectId, @Body() body: UpdateAdminDto) {
     return await this._UserService_.Update(id, body);
+  }
+
+  @Delete("delete-one/:id")
+  async DeleteOne(@Param("id") id: Types.ObjectId) {
+    return await this._UserService_.DeleteOne(id, UserRole.ADMIN);
   }
 }
