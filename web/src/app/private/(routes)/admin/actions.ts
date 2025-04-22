@@ -1,7 +1,7 @@
 "use server";
 import { handleError } from "@/lib/utils";
 import { _axios } from "@/providers/axios/ssr";
-import { getAccessToken } from "@/actions/get-access-token";
+import { getAccessToken } from "@/app/actions/get-access-token";
 
 export async function getAllAdmins() {
   try {
