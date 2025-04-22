@@ -76,6 +76,7 @@ export function UpdateAdminForm({ defaultValues }: Props) {
     },
     onError: (error) => {
       toast({
+        id: "toggle",
         description: error.message,
         variant: "destructive",
         className: "text-white font-semibold",

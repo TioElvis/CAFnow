@@ -55,6 +55,7 @@ export function Actions({ row }: Readonly<Props>) {
     },
     onSuccess: (response) => {
       toast({
+        id: "toggle",
         title: response.data,
         className: "font-semibold",
       });
@@ -62,6 +63,7 @@ export function Actions({ row }: Readonly<Props>) {
     },
     onError: (error) => {
       toast({
+        id: "toggle",
         description: error.message,
         variant: "destructive",
         className: "text-white font-semibold",

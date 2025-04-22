@@ -45,6 +45,7 @@ export function DataTableDeleteRowsSelected({ url }: Readonly<Props>) {
 
       if (ids.length === 0) {
         toast({
+          id: "toggle",
           description: "Per favore seleziona almeno una riga",
           variant: "destructive",
           className: "text-white font-semibold",
@@ -66,6 +67,7 @@ export function DataTableDeleteRowsSelected({ url }: Readonly<Props>) {
     onSuccess: (response) => {
       if (response !== undefined) {
         toast({
+          id: "toggle",
           title: response.data,
           className: "font-semibold",
         });
@@ -75,6 +77,7 @@ export function DataTableDeleteRowsSelected({ url }: Readonly<Props>) {
     },
     onError: (error) => {
       toast({
+        id: "toggle",
         description: error.message,
         variant: "destructive",
         className: "text-white font-semibold",

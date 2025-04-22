@@ -4,6 +4,7 @@ import { Roboto } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { QueryProvider } from "@/providers/query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { ToastProvider } from "@/providers/toast-provider";
 
 const roboto = Roboto({ weight: ["400", "500", "700"], subsets: ["latin"] });
 
@@ -27,7 +28,9 @@ export default function Layout({ children }: Readonly<Props>) {
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <QueryProvider>{children}</QueryProvider>
+          <ToastProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </ToastProvider>
           <Toaster />
         </ThemeProvider>
       </body>

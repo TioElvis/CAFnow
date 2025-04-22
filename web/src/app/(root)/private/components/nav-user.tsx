@@ -56,6 +56,7 @@ export function NavUser() {
     },
     onError: (error) => {
       toast({
+        id: "toggle",
         description: error.message,
         variant: "destructive",
         className: "text-white",

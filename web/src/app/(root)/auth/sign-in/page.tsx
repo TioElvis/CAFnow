@@ -51,6 +51,7 @@ export default function Page() {
     onError: (error) => {
       form.resetField("password");
       toast({
+        id: "toggle",
         description: error.message,
         variant: "destructive",
         className: "text-white font-semibold",
