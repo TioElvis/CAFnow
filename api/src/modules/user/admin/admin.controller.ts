@@ -25,7 +25,7 @@ export class AdminController {
   @Roles("admin")
   async FindAll() {
     return await this._UserService_.FindAll(
-      { $or: [{ role: UserRole.ADMIN }, { role: UserRole.SUPER }] },
+      { role: UserRole.ADMIN },
       { password: false, finger_print: false },
     );
   }
