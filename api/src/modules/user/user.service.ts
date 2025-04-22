@@ -122,4 +122,17 @@ export class UserService {
       throw new HttpException("Errore nell'eliminazione dell'utente", 500);
     }
   }
+
+  async DeleteMany(ids: Array<Types.ObjectId>, role: UserRole) {
+    const promises = ids.map((id) => this.DeleteOne(id, role));
+
+    try {
+      await Promise.all(promises);
+
+      return "Utenti eliminati con successo";
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("Errore nell'eliminazione di alcuni utenti", 500);
+    }
+  }
 }
