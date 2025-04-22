@@ -34,7 +34,7 @@ export function NavUser() {
   const { name, surname, email } = useContext(UserContext)!;
 
   const { toast } = useToast();
-  const { replace } = useRouter();
+  const { replace, refresh } = useRouter();
 
   /*
     Why didn't I directly remove the cookies?
@@ -52,6 +52,7 @@ export function NavUser() {
     },
     onSuccess: () => {
       replace("/");
+      refresh();
     },
     onError: (error) => {
       toast({
