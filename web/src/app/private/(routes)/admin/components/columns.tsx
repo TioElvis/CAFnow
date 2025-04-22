@@ -1,5 +1,15 @@
 "use client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import type { User } from "@/types/user";
+import { Button } from "@/components/ui/button";
+import { MoreHorizontalIcon } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { ColumnDef } from "@tanstack/react-table";
 
@@ -41,5 +51,27 @@ export const columns: ColumnDef<User>[] = [
   {
     header: "Ruolo",
     accessorKey: "role",
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: () => {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="icon" variant="ghost">
+              <MoreHorizontalIcon />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Azioni</DropdownMenuLabel>
+            <DropdownMenuItem>Vedi informazioni</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Modifica</DropdownMenuItem>
+            <DropdownMenuItem>Cancella</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];
