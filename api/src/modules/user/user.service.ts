@@ -89,6 +89,15 @@ export class UserService {
   async Update(id: Types.ObjectId, body: UpdateUserDto & { role?: UserRole }) {
     const user = await this.FindById(id);
 
+    const existingUser = await this._UserModel_.findOne({ email: body.email });
+
+    if (
+      existingUser !== null &&
+      existingUser._id.toString() !== id.toString()
+    ) {
+      throw new HttpException("Utente già esistente con questa email", 400);
+    }
+
     try {
       await user.updateOne({ $set: { ...body } });
 
