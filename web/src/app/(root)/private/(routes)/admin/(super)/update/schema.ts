@@ -7,7 +7,13 @@ export const schema = z.object({
   email: z.string().optional(),
   role: z
     .enum(
-      [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE, UserRole.CLIENT],
+      [
+        UserRole.ADMIN,
+        UserRole.SUPER_MANAGER,
+        UserRole.MANAGER,
+        UserRole.EMPLOYEE,
+        UserRole.CLIENT,
+      ],
       {
         errorMap: () => ({ message: "Campo richiesto" }),
       },
