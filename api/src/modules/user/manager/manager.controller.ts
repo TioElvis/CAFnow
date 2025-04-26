@@ -1,6 +1,7 @@
 import { AuthGuard } from "@nestjs/passport";
 import { UserService } from "../user.service";
-import { Controller, UseGuards } from "@nestjs/common";
+import { UserRole } from "../../../schemas/user.schema";
+import { Controller, Get, UseGuards } from "@nestjs/common";
 import { Roles, RolesGuard } from "../../../guards/roles.guard";
 
 @Controller("manager")
@@ -8,4 +9,12 @@ import { Roles, RolesGuard } from "../../../guards/roles.guard";
 @Roles("super", "admin")
 export class ManagerController {
   constructor(private _UserService_: UserService) {}
+
+  @Get("find-all")
+  async FindAll() {
+    return await this._UserService_.FindAll(
+      { role: UserRole.MANAGER },
+      { password: false, finger_print: false },
+    );
+  }
 }
