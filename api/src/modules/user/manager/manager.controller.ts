@@ -17,4 +17,12 @@ export class ManagerController {
       { password: false, finger_print: false },
     );
   }
+
+  @Get("find-all-super-managers")
+  async FindAllSuperManager() {
+    return await this._UserService_.FindAll(
+      { role: UserRole.SUPER_MANAGER },
+      { password: false, finger_print: false },
+    );
+  }
 }
