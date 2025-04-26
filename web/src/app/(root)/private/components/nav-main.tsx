@@ -25,7 +25,7 @@ export function NavMain() {
   const { setOpenMobile } = useSidebar();
   const { role } = useContext(UserContext)!;
 
-  const navbar = NAVBAR.find((x) => x.role === role);
+  const navbar = NAVBAR.find((x) => x.role.includes(role));
 
   return (
     <SidebarGroup>

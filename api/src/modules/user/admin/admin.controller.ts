@@ -18,7 +18,7 @@ import { Roles, RolesGuard } from "../../../guards/roles.guard";
 
 @Controller("admin")
 @UseGuards(AuthGuard("jwt"), RolesGuard)
-@Roles("super")
+@Roles(UserRole.SUPER)
 export class AdminController {
   constructor(private _UserService_: UserService) {}
 

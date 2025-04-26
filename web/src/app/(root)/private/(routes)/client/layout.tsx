@@ -11,6 +11,7 @@ export default async function Layout({ children }: Readonly<Props>) {
       roles={[
         UserRole.SUPER,
         UserRole.ADMIN,
+        UserRole.SUPER_MANAGER,
         UserRole.MANAGER,
         UserRole.EMPLOYEE,
       ]}>

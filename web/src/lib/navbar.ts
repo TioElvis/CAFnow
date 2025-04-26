@@ -1,8 +1,9 @@
+import { UserRole } from "@/types/user";
 import { BuildingIcon, FileTextIcon, UsersIcon } from "lucide-react";
 
 export const NAVBAR = [
   {
-    role: "super",
+    role: [UserRole.SUPER],
     groups: [
       {
         name: "CAF",
@@ -39,7 +40,7 @@ export const NAVBAR = [
     ],
   },
   {
-    role: "admin",
+    role: [UserRole.ADMIN],
     groups: [
       {
         name: "CAF",
@@ -76,7 +77,7 @@ export const NAVBAR = [
     ],
   },
   {
-    role: "manager",
+    role: [UserRole.SUPER_MANAGER, UserRole.MANAGER],
     groups: [
       {
         name: "Utenti",
@@ -109,7 +110,7 @@ export const NAVBAR = [
     ],
   },
   {
-    role: "employee",
+    role: [UserRole.EMPLOYEE],
     groups: [
       {
         name: "Utenti",
@@ -138,7 +139,7 @@ export const NAVBAR = [
     ],
   },
   {
-    role: "client",
+    role: [UserRole.CLIENT],
     groups: [
       {
         name: "Pratiche",

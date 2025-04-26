@@ -7,7 +7,13 @@ interface Props {
 
 export default async function Layout({ children }: Readonly<Props>) {
   return (
-    <PermissionGate roles={[UserRole.SUPER, UserRole.ADMIN, UserRole.MANAGER]}>
+    <PermissionGate
+      roles={[
+        UserRole.SUPER,
+        UserRole.ADMIN,
+        UserRole.SUPER_MANAGER,
+        UserRole.MANAGER,
+      ]}>
       {children}
     </PermissionGate>
   );

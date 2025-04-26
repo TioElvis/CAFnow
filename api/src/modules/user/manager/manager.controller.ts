@@ -6,14 +6,14 @@ import { Roles, RolesGuard } from "../../../guards/roles.guard";
 
 @Controller("manager")
 @UseGuards(AuthGuard("jwt"), RolesGuard)
-@Roles("super", "admin")
+@Roles(UserRole.SUPER, UserRole.ADMIN)
 export class ManagerController {
   constructor(private _UserService_: UserService) {}
 
   @Get("find-all")
   async FindAll() {
     return await this._UserService_.FindAll(
-      { role: UserRole.MANAGER },
+      { $or: [{ role: UserRole.SUPER_MANAGER }, { role: UserRole.MANAGER }] },
       { password: false, finger_print: false },
     );
   }
