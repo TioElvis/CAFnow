@@ -136,7 +136,7 @@ export function CreateCAFForm({ super_managers }: Readonly<Props>) {
                         />
                         <CommandList className="w-full">
                           <CommandEmpty className="p-2 text-sm">
-                            Non c'è un super manager con questo nome
+                            Non c&#39;è un super manager con questo nome
                           </CommandEmpty>
                           <CommandGroup className="w-full">
                             {super_managers.map((e) => (
