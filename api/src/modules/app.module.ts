@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
+import { CAFModule } from "./caf/caf.module";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
 import { AppController } from "./app.controller";
@@ -29,6 +30,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
     PassportModule,
     UserModule,
     AuthModule,
+    CAFModule,
   ],
   controllers: [AppController],
   providers: [JwtStrategy],
