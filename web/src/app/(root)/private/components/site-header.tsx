@@ -42,16 +42,12 @@ export function SiteHeader() {
                     {index !== path.length - 1 ? (
                       <BreadcrumbLink asChild>
                         <Link href={href}>
-                          {e === "caf"
-                            ? "CAF"
-                            : e.charAt(0).toUpperCase() + e.slice(1)}
+                          {e.charAt(0).toUpperCase() + e.slice(1)}
                         </Link>
                       </BreadcrumbLink>
                     ) : (
                       <BreadcrumbPage>
-                        {e === "caf"
-                          ? "CAF"
-                          : e.charAt(0).toUpperCase() + e.slice(1)}
+                        {e.charAt(0).toUpperCase() + e.slice(1)}
                       </BreadcrumbPage>
                     )}
                   </BreadcrumbItem>

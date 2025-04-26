@@ -11,7 +11,7 @@ export const NAVBAR = [
         sub_items: [
           {
             title: "Vedi tutti",
-            to: "/admin/caf",
+            to: "/admin/CAF",
           },
         ],
       },
@@ -48,7 +48,7 @@ export const NAVBAR = [
         sub_items: [
           {
             title: "Vedi tutti",
-            to: "/admin/caf",
+            to: "/admin/CAF",
           },
         ],
       },
