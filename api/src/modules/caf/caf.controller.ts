@@ -3,7 +3,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { CreateCAFDto } from "./dto/create-caf.dto";
 import { UserRole } from "../../schemas/user.schema";
 import { Roles, RolesGuard } from "../../guards/roles.guard";
-import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 
 @Controller("CAF")
 @UseGuards(AuthGuard("jwt"), RolesGuard)
@@ -14,5 +14,10 @@ export class CAFController {
   @Post("create")
   async Create(@Body() body: CreateCAFDto) {
     return await this._CAFService_.Create(body);
+  }
+
+  @Get("find-all")
+  async FindAll() {
+    return await this._CAFService_.FindAll();
   }
 }

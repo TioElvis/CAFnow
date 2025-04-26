@@ -34,4 +34,17 @@ export class CAFService {
       throw new HttpException("Errore nel creare un CAF", 500);
     }
   }
+
+  async FindAll() {
+    try {
+      const cafs = await this._CAFModule_
+        .find()
+        .populate("super_manager", "name surname");
+
+      return cafs;
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("Errore nella ricerca degli CAF", 500);
+    }
+  }
 }
