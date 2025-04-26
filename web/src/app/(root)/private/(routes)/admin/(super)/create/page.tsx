@@ -42,7 +42,7 @@ export default function Page() {
     mutationKey: ["create-user-admin"],
     mutationFn: async (values: z.infer<typeof schema>) => {
       try {
-        const response = await _axios.post("/admin", values);
+        const response = await _axios.post("/admin/create", values);
 
         return response;
       } catch (error) {

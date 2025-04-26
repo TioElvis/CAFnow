@@ -31,7 +31,7 @@ export class AdminController {
     );
   }
 
-  @Post()
+  @Post("create")
   async Create(@Body() body: CreateAdminDto) {
     return await this._UserService_.Create(body);
   }
