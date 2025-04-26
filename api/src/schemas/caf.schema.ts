@@ -8,8 +8,8 @@ export class CAF {
   name: string;
 
   // A super_manager is required when creating a CAF
-  @Prop({ type: Array<Types.ObjectId>, ref: User.name, required: true })
-  super_manager: Array<Types.ObjectId>;
+  @Prop({ type: Types.ObjectId, ref: User.name, required: true })
+  super_manager: Types.ObjectId;
 }
 
 export const CAFSchema = SchemaFactory.createForClass(CAF);
