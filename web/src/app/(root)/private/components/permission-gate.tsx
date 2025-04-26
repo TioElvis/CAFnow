@@ -23,7 +23,8 @@ export function PermissionGate({ roles, children }: Readonly<Props>) {
           Non hai i permessi necessari per accedere a questa pagina.
         </p>
         <p className="text-muted-foreground">
-          Per favore contatta un super o un amministratore per richiedere
+          Per favore contatta un super{" "}
+          {role !== UserRole.ADMIN && "o un amministratore"} per richiedere
           l&#39;accesso.
         </p>
       </Card>
