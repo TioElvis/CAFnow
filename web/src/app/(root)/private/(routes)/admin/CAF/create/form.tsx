@@ -86,6 +86,12 @@ export function CreateCAFForm({ super_managers }: Readonly<Props>) {
   return (
     <MaxWidthWrapper className="w-full flex items-center justify-center">
       <Card className="p-8 w-full md:w-[28rem]">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold">Crea un nuovo CAF</h2>
+          <p className="text-muted-foreground">
+            Inserisci i dettagli per creare un nuovo CAF
+          </p>
+        </div>
         <Form {...form}>
           <form className="w-full space-y-8" onSubmit={onSubmit}>
             <FormField
