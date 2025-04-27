@@ -3,44 +3,7 @@ import { BuildingIcon, FileTextIcon, UsersIcon } from "lucide-react";
 
 export const NAVBAR = [
   {
-    role: [UserRole.SUPER],
-    groups: [
-      {
-        name: "CAF",
-        Icon: BuildingIcon,
-        sub_items: [
-          {
-            title: "Vedi tutti",
-            to: "/admin/CAF",
-          },
-        ],
-      },
-      {
-        name: "Utenti",
-        Icon: UsersIcon,
-        sub_items: [
-          {
-            title: "Amministratori",
-            to: "/admin",
-          },
-          {
-            title: "Managers",
-            to: "/manager",
-          },
-          {
-            title: "Lavoratori",
-            to: "/employee",
-          },
-          {
-            title: "Clienti",
-            to: "/client",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    role: [UserRole.ADMIN],
+    role: [UserRole.SUPER, UserRole.ADMIN],
     groups: [
       {
         name: "CAF",

@@ -14,7 +14,6 @@ export const user = z.object({
     UserRole.EMPLOYEE,
     UserRole.CLIENT,
   ]),
-  finger_print: z.string().optional(),
   createdAt: z.date(),
   updateAt: z.date(),
 });
