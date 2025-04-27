@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllManagers } from "./actions";
+import { findAllManagers } from "./actions";
 import { columns } from "./components/columns";
 import { Button } from "@/components/ui/button";
 import { TableProvider } from "@/context/table";
@@ -12,7 +12,7 @@ export default async function Page() {
   /*
    For the future: Check if the user is a admin or a super show all managers else show only the managers that are connected with the same CAF
   */
-  const managers = await getAllManagers();
+  const managers = await findAllManagers();
 
   return (
     <div className="container mx-auto py-10">

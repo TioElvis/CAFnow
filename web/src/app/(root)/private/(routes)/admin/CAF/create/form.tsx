@@ -85,7 +85,7 @@ export function CreateCAFForm({ super_managers }: Readonly<Props>) {
 
   return (
     <MaxWidthWrapper className="w-full flex items-center justify-center">
-      <Card className="p-8 w-[28rem]">
+      <Card className="p-8 w-full md:w-[28rem]">
         <Form {...form}>
           <form className="w-full space-y-8" onSubmit={onSubmit}>
             <FormField
@@ -135,8 +135,8 @@ export function CreateCAFForm({ super_managers }: Readonly<Props>) {
                           className="h-8"
                         />
                         <CommandList className="w-full">
-                          <CommandEmpty className="p-2 text-sm">
-                            Non c&#39;è un super manager con questo nome
+                          <CommandEmpty className="py-4 text-sm flex items-center justify-center">
+                            Non si è trovato nessun super manager
                           </CommandEmpty>
                           <CommandGroup className="w-full">
                             {super_managers.map((e) => (
