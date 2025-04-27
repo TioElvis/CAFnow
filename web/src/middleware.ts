@@ -22,6 +22,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (refresh_token !== undefined) {
+    // Using fetch to handle the request status more effectively
     const response = await fetch(
       new URL("/auth/check-refresh-token-integrity", process.env.API_URL),
       {

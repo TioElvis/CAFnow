@@ -1,5 +1,5 @@
 import { UserRole } from "@/types/user";
-import { PermissionGate } from "../../../components/permission-gate";
+import { PermissionGate } from "@/components/permission-gate";
 
 interface Props {
   children: React.ReactNode;
