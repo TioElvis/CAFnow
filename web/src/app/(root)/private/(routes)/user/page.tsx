@@ -1,5 +1,5 @@
 import { findUserById } from "./actions";
-import { NotFound } from "./components/not-found";
+import { NotFoundUser } from "@/components/not-found-user";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 
 interface Props {
@@ -40,6 +40,6 @@ export default async function Page({ searchParams }: Readonly<Props>) {
     );
   } catch (error) {
     console.error(error);
-    return <NotFound />;
+    return <NotFoundUser />;
   }
 }

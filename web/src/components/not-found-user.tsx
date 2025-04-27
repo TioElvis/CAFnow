@@ -1,6 +1,6 @@
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 
-export function NotFound() {
+export function NotFoundUser() {
   return (
     <MaxWidthWrapper className="flex flex-col items-center justify-center">
       <h2 className="text-4xl font-bold">Utente non trovato</h2>

@@ -1,7 +1,7 @@
 import { UserRole } from "@/types/user";
 import { UpdateAdminForm } from "./form";
 import { findUserById } from "../../../user/actions";
-import { NotFound } from "../../../user/components/not-found";
+import { NotFoundUser } from "@/components/not-found-user";
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -20,6 +20,6 @@ export default async function Page({ searchParams }: Readonly<Props>) {
     return <UpdateAdminForm defaultValues={user} />;
   } catch (error) {
     console.error(error);
-    return <NotFound />;
+    return <NotFoundUser />;
   }
 }
