@@ -8,6 +8,8 @@ import { DataTablePagination } from "@/components/data-table-pagination";
 import { DataTableGlobalFilter } from "@/components/data-table-global-filter";
 import { DataTableDeleteRowsSelected } from "@/components/data-table-delete-rows-selected";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const cafs = await getAllCAFs();
 

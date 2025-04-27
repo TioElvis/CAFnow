@@ -8,6 +8,8 @@ import { DataTablePagination } from "@/components/data-table-pagination";
 import { DataTableGlobalFilter } from "@/components/data-table-global-filter";
 import { DataTableDeleteRowsSelected } from "@/components/data-table-delete-rows-selected";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   /*
    For the future: Check if the user is a admin or a super show all managers else show only the managers that are connected with the same CAF
