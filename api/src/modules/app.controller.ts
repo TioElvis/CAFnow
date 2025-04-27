@@ -1,10 +1,10 @@
 import { Controller, Get } from "@nestjs/common";
 
-@Controller("")
+@Controller("/")
 export class AppController {
   constructor() {}
 
-  @Get("")
+  @Get("/")
   Welcome() {
     return "Benvenuto all'API di CAFnow";
   }

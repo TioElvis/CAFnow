@@ -11,18 +11,18 @@ import {
 import { Types } from "mongoose";
 import { AuthGuard } from "@nestjs/passport";
 import { UserService } from "../user.service";
+import { CreateUserDto } from "../dto/create-user.dto";
 import { UserRole } from "../../../schemas/user.schema";
-import { CreateAdminDto } from "./dto/create-admin.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
 import { Roles, RolesGuard } from "../../../guards/roles.guard";
 
-@Controller("admin")
+@Controller("/admin")
 @UseGuards(AuthGuard("jwt"), RolesGuard)
 @Roles(UserRole.SUPER)
 export class AdminController {
   constructor(private _UserService_: UserService) {}
 
-  @Get("find-all")
+  @Get("/find-all")
   @Roles("admin")
   async FindAll() {
     return await this._UserService_.FindAll(
@@ -31,22 +31,22 @@ export class AdminController {
     );
   }
 
-  @Post("create")
-  async Create(@Body() body: CreateAdminDto) {
-    return await this._UserService_.Create(body);
+  @Post("/create")
+  async Create(@Body() body: CreateUserDto) {
+    return await this._UserService_.Create({ ...body, role: UserRole.ADMIN });
   }
 
-  @Patch("update-by-id/:id")
+  @Patch("/update-by-id/:id")
   async Update(@Param("id") id: Types.ObjectId, @Body() body: UpdateAdminDto) {
     return await this._UserService_.Update(id, body);
   }
 
-  @Delete("delete-one/:id")
+  @Delete("/delete-one/:id")
   async DeleteOne(@Param("id") id: Types.ObjectId) {
     return await this._UserService_.DeleteOne(id, UserRole.ADMIN);
   }
 
-  @Delete("delete-many")
+  @Delete("/delete-many")
   async DeleteMany(@Body() { ids }: { ids: Array<Types.ObjectId> }) {
     return await this._UserService_.DeleteMany(ids, UserRole.ADMIN);
   }
