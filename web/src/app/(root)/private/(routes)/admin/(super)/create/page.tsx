@@ -9,7 +9,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { schema } from "./schema";
-import { UserRole } from "@/types/user";
 import { HandleError } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -30,7 +29,6 @@ export default function Page() {
       name: "",
       surname: "",
       email: "",
-      role: UserRole.ADMIN,
     },
     mode: "onSubmit",
   });
@@ -72,63 +70,27 @@ export default function Page() {
 
   return (
     <MaxWidthWrapper className="w-full flex items-center justify-center">
-      <Card className="p-8 w-[28rem]">
+      <Card className="p-8 w-full md:w-[28rem]">
         <Form {...form}>
           <form className="w-full space-y-8" onSubmit={onSubmit}>
-            <div>
-              <h2 className="text-2xl font-bold text-center">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold">
                 Crea un nuovo Amministratore
               </h2>
-              <p className="text-center text-muted-foreground">
+              <p className="text-muted-foreground">
                 Inserisci i dettagli per creare un nuovo account amministratore
               </p>
             </div>
-            <div className="flex flex-col lg:flex-row gap-8">
-              <FormField
-                name="name"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem className="flex-1/2">
-                    <FormLabel>Nome</FormLabel>
-                    <FormControl>
-                      <Input
-                        autoComplete="off"
-                        placeholder="Inserisci il nome"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="surname"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem className="flex-1/2">
-                    <FormLabel>Cognome</FormLabel>
-                    <FormControl>
-                      <Input
-                        autoComplete="off"
-                        placeholder="Inserisci il cognome"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
             <FormField
-              name="email"
+              name="name"
               control={form.control}
               render={({ field }) => (
-                <FormItem className="flex-1/2">
-                  <FormLabel>Email</FormLabel>
+                <FormItem>
+                  <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input
                       autoComplete="off"
-                      placeholder="Inserisci l'email"
+                      placeholder="Inserisci il nome dell'amministratore"
                       {...field}
                     />
                   </FormControl>
@@ -137,13 +99,34 @@ export default function Page() {
               )}
             />
             <FormField
-              name="role"
+              name="surname"
               control={form.control}
               render={({ field }) => (
-                <FormItem className="flex-1/2 cursor-not-allowed">
-                  <FormLabel>Ruolo</FormLabel>
+                <FormItem>
+                  <FormLabel>Cognome</FormLabel>
                   <FormControl>
-                    <Input disabled {...field} value={field.value} />
+                    <Input
+                      autoComplete="off"
+                      placeholder="Inserisci il cognome dell'amministratore"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="email"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      autoComplete="off"
+                      placeholder="Inserisci l'email dell'amministratore"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
