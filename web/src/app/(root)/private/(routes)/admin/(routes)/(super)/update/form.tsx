@@ -11,7 +11,6 @@ import {
 import { schema } from "./schema";
 import { User } from "@/types/user";
 import { useForm } from "react-hook-form";
-import { HandleError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
@@ -19,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { _axios } from "@/providers/axios/csr";
 import { Button } from "@/components/ui/button";
 import { LoaderCircleIcon } from "lucide-react";
+import { HandleError } from "@/lib/handle-error";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
@@ -56,6 +56,7 @@ export function UpdateAdminForm({ defaultValues }: Props) {
       push("/private/admin");
       toast({
         title: response.data,
+        description: "Se non vedi l'admin aggiornato, ricarica la pagina",
         className: "font-semibold",
       });
     },
@@ -73,7 +74,7 @@ export function UpdateAdminForm({ defaultValues }: Props) {
 
   return (
     <MaxWidthWrapper className="w-full flex items-center justify-center">
-      <Card className="p-8 w-full md:w-[28rem]">
+      <Card className="p-8 w-full lg:w-[28rem]">
         <Form {...form}>
           <form className="w-full space-y-8" onSubmit={onSubmit}>
             <div className="text-center">

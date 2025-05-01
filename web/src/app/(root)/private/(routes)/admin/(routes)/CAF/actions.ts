@@ -1,9 +1,9 @@
 "use server";
-import { HandleError } from "@/lib/utils";
-import { getAccessToken } from "@/app/actions";
 import { _axios } from "@/providers/axios/ssr";
+import { HandleError } from "@/lib/handle-error";
+import { getAccessToken } from "@/app/(root)/private/actions";
 
-export async function getAllCAFs() {
+export async function findAllCAFs() {
   try {
     const access_token = await getAccessToken();
 
@@ -15,6 +15,6 @@ export async function getAllCAFs() {
 
     return response.data;
   } catch (error) {
-    HandleError(error);
+    throw HandleError(error);
   }
 }

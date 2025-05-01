@@ -16,29 +16,25 @@ import {
   AlertDialogTitle,
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
-import { HandleError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { _axios } from "@/providers/axios/csr";
 import { TableContext } from "@/context/table";
+import { HandleError } from "@/lib/handle-error";
 import { useMutation } from "@tanstack/react-query";
 import { LoaderCircleIcon, Trash2Icon } from "lucide-react";
 
-interface Props {
-  url: string;
-}
-
-export function DataTableDeleteRowsSelected({ url }: Readonly<Props>) {
+export function DataTableDeleteRowsSelected() {
   const [alertDialog, setAlertDialog] = useState(false);
 
-  const { table } = useContext(TableContext)!;
+  const { table, name } = useContext(TableContext)!;
 
   const { toast } = useToast();
   const { refresh } = useRouter();
 
   const { mutate: DeleteMany, isPending } = useMutation({
-    mutationKey: ["delete-many-rows"],
+    mutationKey: ["delete-many-rows", name],
     mutationFn: async () => {
       const rows = table.getSelectedRowModel().rows;
       const ids = rows.map((row) => row.original._id);
@@ -55,7 +51,7 @@ export function DataTableDeleteRowsSelected({ url }: Readonly<Props>) {
       }
 
       try {
-        const response = await _axios.delete(url, {
+        const response = await _axios.delete(`/${name}/delete-many`, {
           data: { ids },
         });
 
@@ -71,8 +67,8 @@ export function DataTableDeleteRowsSelected({ url }: Readonly<Props>) {
           title: response.data,
           className: "font-semibold",
         });
-
         refresh();
+        table.resetRowSelection();
       }
     },
     onError: (error) => {

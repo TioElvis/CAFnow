@@ -17,15 +17,133 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { NAVBAR } from "@/lib/navbar";
+import { UserRole } from "@/types/user";
 import { UserContext } from "@/context/user";
 import { ChevronRightIcon } from "lucide-react";
+import { BuildingIcon, FileTextIcon, UsersIcon } from "lucide-react";
+
+const NAVBAR = [
+  {
+    role: [UserRole.SUPER, UserRole.ADMIN],
+    groups: [
+      {
+        name: "CAF",
+        Icon: BuildingIcon,
+        sub_items: [
+          {
+            title: "Vedi tutti",
+            to: "/admin/CAF",
+          },
+        ],
+      },
+      {
+        name: "Utenti",
+        Icon: UsersIcon,
+        sub_items: [
+          {
+            title: "Amministratori",
+            to: "/admin",
+          },
+          {
+            title: "Managers",
+            to: "/admin/manager",
+          },
+          {
+            title: "Lavoratori",
+            to: "/admin/employee",
+          },
+          {
+            title: "Clienti",
+            to: "/admin/client",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    role: [UserRole.SUPER_MANAGER, UserRole.MANAGER],
+    groups: [
+      {
+        name: "Utenti",
+        Icon: UsersIcon,
+        sub_items: [
+          {
+            title: "Managers",
+            to: "/manager",
+          },
+          {
+            title: "Lavoratori",
+            to: "/employee",
+          },
+          {
+            title: "Clienti",
+            to: "/client",
+          },
+        ],
+      },
+      {
+        name: "Pratiche",
+        Icon: FileTextIcon,
+        sub_items: [
+          {
+            title: "Vedi tutte",
+            to: "/protocol",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    role: [UserRole.EMPLOYEE],
+    groups: [
+      {
+        name: "Utenti",
+        Icon: UsersIcon,
+        sub_items: [
+          {
+            title: "Lavoratori",
+            to: "/employee",
+          },
+          {
+            title: "Clienti",
+            to: "/client",
+          },
+        ],
+      },
+      {
+        name: "Pratiche",
+        Icon: FileTextIcon,
+        sub_items: [
+          {
+            title: "Vedi tutte",
+            to: "/protocol",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    role: [UserRole.CLIENT],
+    groups: [
+      {
+        name: "Pratiche",
+        Icon: FileTextIcon,
+        sub_items: [
+          {
+            title: "Le mie pratiche",
+            to: "/client/protocol",
+          },
+        ],
+      },
+    ],
+  },
+];
 
 export function NavMain() {
   const { setOpenMobile } = useSidebar();
   const { role } = useContext(UserContext)!;
 
-  const navbar = NAVBAR.find((x) => x.role.includes(role));
+  const navbar = NAVBAR.find((e) => e.role.includes(role));
 
   return (
     <SidebarGroup>

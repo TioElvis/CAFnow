@@ -1,6 +1,6 @@
 "use client";
-import { Actions } from "./actions";
 import type { User } from "@/types/user";
+import { MenuActions } from "./menu-actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { ColumnDef } from "@tanstack/react-table";
 
@@ -40,14 +40,10 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "email",
   },
   {
-    header: "Ruolo",
-    accessorKey: "role",
-  },
-  {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      return <Actions row={row.original} />;
+      return <MenuActions row={row.original} />;
     },
   },
 ];

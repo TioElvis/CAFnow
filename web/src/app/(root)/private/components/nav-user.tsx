@@ -20,12 +20,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { HandleError } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 import { Fragment, useContext } from "react";
 import { UserContext } from "@/context/user";
 import { useToast } from "@/hooks/use-toast";
 import { _axios } from "@/providers/axios/csr";
+import { HandleError } from "@/lib/handle-error";
 import { useMutation } from "@tanstack/react-query";
 import { ModeToggle } from "@/components/mode-toggle";
 
@@ -34,7 +33,6 @@ export function NavUser() {
   const { name, surname, email } = useContext(UserContext)!;
 
   const { toast } = useToast();
-  const { replace, refresh } = useRouter();
 
   /*
     Why didn't I directly remove the cookies?
@@ -51,8 +49,7 @@ export function NavUser() {
       }
     },
     onSuccess: () => {
-      replace("/");
-      refresh();
+      window.location.href = "/";
     },
     onError: (error) => {
       toast({

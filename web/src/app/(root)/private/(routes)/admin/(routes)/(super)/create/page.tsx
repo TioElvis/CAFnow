@@ -9,7 +9,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { schema } from "./schema";
-import { HandleError } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
@@ -18,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { _axios } from "@/providers/axios/csr";
 import { LoaderCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HandleError } from "@/lib/handle-error";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
@@ -52,11 +52,10 @@ export default function Page() {
       push("/private/admin");
       toast({
         title: response.data,
-        className: "font-semibold",
+        description: "Se non vedi il nuovo admin, ricarica la pagina",
       });
     },
     onError: (error) => {
-      form.resetField("email");
       toast({
         id: "toggle",
         description: error.message,
@@ -70,7 +69,7 @@ export default function Page() {
 
   return (
     <MaxWidthWrapper className="w-full flex items-center justify-center">
-      <Card className="p-8 w-full md:w-[28rem]">
+      <Card className="p-8 w-full lg:w-[28rem]">
         <Form {...form}>
           <form className="w-full space-y-8" onSubmit={onSubmit}>
             <div className="text-center">

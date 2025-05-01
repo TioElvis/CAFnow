@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 import { getCookie } from "cookies-next";
-import { HandleError } from "@/lib/utils";
+import { redirect } from "next/navigation";
 import { _axios } from "@/providers/axios/ssr";
 
 export async function getAccessToken() {
@@ -21,6 +21,7 @@ export async function getAccessToken() {
 
     return access_token;
   } catch (error) {
-    throw HandleError(error);
+    console.error(error);
+    return redirect("/auth/sign-in");
   }
 }

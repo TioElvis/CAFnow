@@ -15,6 +15,7 @@ import type { UseState } from "@/types";
 import { createContext, useState } from "react";
 
 interface Context {
+  name: string;
   data: Array<any>;
   columns: Array<ColumnDef<any>>;
   table: Table<any>;
@@ -26,6 +27,7 @@ export const TableContext = createContext<Context | null>(null);
 
 interface Props {
   children: React.ReactNode;
+  name: string;
   data: Array<any>;
   columns: Array<ColumnDef<any>>;
 }
@@ -48,6 +50,7 @@ export function TableProvider({ children, ...props }: Readonly<Props>) {
   });
 
   const values: Context = {
+    name: props.name,
     data: props.data,
     columns: props.columns,
     table,

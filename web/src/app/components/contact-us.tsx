@@ -42,42 +42,40 @@ export function ContactUs() {
         onSubmit={form.handleSubmit(async (values) => {
           console.log(values);
         })}>
-        <div className="flex flex-col lg:flex-row gap-4">
-          <FormField
-            name="name"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex-1/2">
-                <FormLabel>Nome</FormLabel>
-                <FormControl>
-                  <Input
-                    autoComplete="off"
-                    placeholder="Inserisci il tuo nome"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="surname"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex-1/2">
-                <FormLabel>Cognome</FormLabel>
-                <FormControl>
-                  <Input
-                    autoComplete="off"
-                    placeholder="Inserisci il tuo cognome"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormField
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nome</FormLabel>
+              <FormControl>
+                <Input
+                  autoComplete="off"
+                  placeholder="Inserisci il tuo nome"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="surname"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cognome</FormLabel>
+              <FormControl>
+                <Input
+                  autoComplete="off"
+                  placeholder="Inserisci il tuo cognome"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           name="email"
           control={form.control}

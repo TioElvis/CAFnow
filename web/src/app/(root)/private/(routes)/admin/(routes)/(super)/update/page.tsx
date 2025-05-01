@@ -1,6 +1,6 @@
 import { UserRole } from "@/types/user";
 import { UpdateAdminForm } from "./form";
-import { findUserById } from "../../../user/actions";
+import { findUserById } from "../../user/actions";
 import { NotFoundUser } from "@/components/not-found-user";
 
 interface Props {

@@ -2,7 +2,6 @@
 import Link from "next/link";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -18,13 +17,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { HandleError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@/context/user";
 import { useContext, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { _axios } from "@/providers/axios/csr";
 import { Button } from "@/components/ui/button";
+import { HandleError } from "@/lib/handle-error";
 import { UserRole, type User } from "@/types/user";
 import { useMutation } from "@tanstack/react-query";
 import { LoaderCircleIcon, MoreHorizontalIcon } from "lucide-react";
@@ -33,7 +32,7 @@ interface Props {
   row: User;
 }
 
-export function Actions({ row }: Readonly<Props>) {
+export function MenuActions({ row }: Readonly<Props>) {
   const [alertDialog, setAlertDialog] = useState(false);
   const [dropdownMenu, setDropdownMenu] = useState(false);
 
@@ -43,23 +42,22 @@ export function Actions({ row }: Readonly<Props>) {
   const { refresh } = useRouter();
 
   const { mutate: DeleteOne, isPending } = useMutation({
-    mutationKey: ["delete-one-user"],
+    mutationKey: ["delete-one-user-admin"],
     mutationFn: async () => {
       try {
         const response = await _axios.delete(`/admin/delete-one/${row._id}`);
-
         return response;
       } catch (error) {
         throw HandleError(error);
       }
     },
     onSuccess: (response) => {
+      refresh();
       toast({
         id: "toggle",
         title: response.data,
         className: "font-semibold",
       });
-      refresh();
     },
     onError: (error) => {
       toast({
@@ -82,7 +80,9 @@ export function Actions({ row }: Readonly<Props>) {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Azioni</DropdownMenuLabel>
           <DropdownMenuItem asChild>
-            <Link href={`/private/user?id=${row._id}`}>Vedi informazioni</Link>
+            <Link href={`/private/admin/user?id=${row._id}`}>
+              Vedi informazioni
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
@@ -114,7 +114,7 @@ export function Actions({ row }: Readonly<Props>) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancella</AlertDialogCancel>
-            <AlertDialogAction disabled={isPending} onClick={() => DeleteOne()}>
+            <Button disabled={isPending} onClick={() => DeleteOne()}>
               {isPending ? (
                 <span className="flex items-center gap-2">
                   <LoaderCircleIcon className="animate-spin" />
@@ -123,7 +123,7 @@ export function Actions({ row }: Readonly<Props>) {
               ) : (
                 "Continua"
               )}
-            </AlertDialogAction>
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </DropdownMenu>

@@ -22,16 +22,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { schema } from "./schema";
 import type { User } from "@/types/user";
 import { useForm } from "react-hook-form";
 import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { cn, HandleError } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { _axios } from "@/providers/axios/csr";
 import { Button } from "@/components/ui/button";
+import { HandleError } from "@/lib/handle-error";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
@@ -68,6 +69,7 @@ export function CreateCAFForm({ super_managers }: Readonly<Props>) {
       push("/private/admin/CAF");
       toast({
         title: response.data,
+        description: "Se non vedi il nuovo CAF, ricarica la pagina",
         className: "font-semibold",
       });
     },
@@ -85,7 +87,7 @@ export function CreateCAFForm({ super_managers }: Readonly<Props>) {
 
   return (
     <MaxWidthWrapper className="w-full flex items-center justify-center">
-      <Card className="p-8 w-full md:w-[28rem]">
+      <Card className="p-8 w-full lg:w-[28rem]">
         <div className="text-center">
           <h2 className="text-2xl font-bold">Crea un nuovo CAF</h2>
           <p className="text-muted-foreground">

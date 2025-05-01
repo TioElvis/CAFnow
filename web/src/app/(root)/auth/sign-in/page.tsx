@@ -11,13 +11,12 @@ import {
 } from "@/components/ui/form";
 import { schema } from "./schema";
 import { useForm } from "react-hook-form";
-import { HandleError } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { _axios } from "@/providers/axios/csr";
 import { LoaderCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HandleError } from "@/lib/handle-error";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -32,7 +31,6 @@ export default function Page() {
   });
 
   const { toast } = useToast();
-  const { replace, refresh } = useRouter();
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["sign-in"],
@@ -45,8 +43,7 @@ export default function Page() {
     },
     onSuccess: () => {
       form.reset();
-      replace("/private");
-      refresh();
+      window.location.href = "/private";
     },
     onError: (error) => {
       form.resetField("password");
